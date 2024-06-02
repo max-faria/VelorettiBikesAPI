@@ -1,0 +1,6 @@
+@VelorettiAPI_HostAddress = http://localhost:5255
+
+GET {{VelorettiAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
