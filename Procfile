@@ -1,1 +1,1 @@
-web: dotnet ./app/VelorettiAPI.dll
+web: dotnet ./publish/VelorettiAPI.dll
