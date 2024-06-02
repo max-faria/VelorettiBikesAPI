@@ -117,3 +117,9 @@
 /Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.VelorettiAPI.props
 /Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/obj/Debug/net8.0/staticwebassets.pack.json
 /Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/obj/Debug/net8.0/scopedcss/bundle/VelorettiAPI.styles.css
+/Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Debug/net8.0/publish/web.config
+/Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Debug/net8.0/publish/appsettings.Development.json
+/Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Debug/net8.0/publish/appsettings.json
+/Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Debug/net8.0/publish/VelorettiAPI.deps.json
+/Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Debug/net8.0/publish/VelorettiAPI.runtimeconfig.json
+/Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/obj/Debug/net8.0/VelorettiAPI.sourcelink.json
