@@ -7,17 +7,16 @@ phases:
   pre_build:
     commands:
       - echo Restoring dependencies...
-      - dotnet restore
+      - dotnet restore VelorettiAPI/VelorettiAPI.csproj
   build:
     commands:
       - echo Building the project...
-      - dotnet build --configuration Release
+      - dotnet build VelorettiAPI/VelorettiAPI.csproj
       - echo Publishing the project...
-      - dotnet publish --configuration Release --output ./publish
   post_build:
     commands:
+      - dotnet publish -c Release -o ./app/ VelorettiAPI/VelorettiAPI.csproj
       - echo Build completed successfully
 artifacts:
   files:
-    - publish/**/*   # Certifique-se de que todos os arquivos publicados estão incluídos
-  discard-paths: yes
+    - '**/*' 
