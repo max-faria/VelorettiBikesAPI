@@ -31,6 +31,7 @@ namespace VelorettiAPI.Controllers;
             return Ok(users);
         }
         [HttpGet("{id}")]
+        [Authorize(Policy = "AuthenticatedUser")]
         public async Task<IActionResult> GetUserById(int id)
         {
             var user = await _userService.GetById(id);
