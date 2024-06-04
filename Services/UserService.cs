@@ -51,7 +51,7 @@ public class UserService
         await _context.SaveChangesAsync();
     }
     //verify user
-    public async Task<bool> VerifyUser( string email, string password)
+    public async Task<bool> VerifyUser(string email, string password)
     {
         var user = await _context.Users.SingleOrDefaultAsync(user => user.Email == email);
         if (user == null)
@@ -64,7 +64,7 @@ public class UserService
     public string GenerateJWT(User user)
     {
         var JwtKey = _configuration["Jwt:key"];
-        if(string.IsNullOrEmpty(JwtKey))
+        if (string.IsNullOrEmpty(JwtKey))
         {
             throw new ArgumentNullException("Jwt:key", "JWT key configuration is missing or null.");
         }
@@ -76,7 +76,8 @@ public class UserService
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim("IsAdmin", user.IsAdmin.ToString())
+            new Claim("IsAdmin", user.IsAdmin.ToString()),
+            new Claim("UserId", user.UserId.ToString()),
         };
 
         var token = new JwtSecurityToken(
@@ -86,7 +87,7 @@ public class UserService
             expires: DateTime.Now.AddMinutes(120),
             signingCredentials: credentials
         );
-        
+
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }
