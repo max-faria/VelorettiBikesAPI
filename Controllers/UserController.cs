@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using VelorettiAPI.Attributes;
 using VelorettiAPI.Models;
 using VelorettiAPI.Services;
 
@@ -18,6 +20,7 @@ namespace VelorettiAPI.Controllers;
        }
 
         [HttpGet]
+        [Authorize(Policy = "Admin")]
         public async Task<ActionResult<List<User>>> GetAllUsers()
         {   
             var users = await _userService.GetAllUsersAsync();
@@ -47,7 +50,7 @@ namespace VelorettiAPI.Controllers;
 
             var subject = "Welcome!";
             var message = $"Hello {user.Name},\n\nWelcome to our service. We're glad to have you with us!";
-            // await _emailService.SendEmailAsync(user.Email, subject, message);
+            await _emailService.SendEmailAsync(user.Email, subject, message);
             await _userService.CreateUser(user);
             return CreatedAtAction(nameof(GetUserById), new {id = user.UserId}, user);
         }

@@ -13,5 +13,6 @@ namespace VelorettiAPI.Models
         public required string Password { get; set; }
         public string? Phone { get; set; }
         public DateTime? Birth { get; set; }
+        public bool IsAdmin { get; private set; } = false;
     }
 }

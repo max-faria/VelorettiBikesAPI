@@ -68,14 +68,15 @@ public class UserService
         {
             throw new ArgumentNullException("Jwt:key", "JWT key configuration is missing or null.");
         }
-        
+
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtKey));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim("IsAdmin", user.IsAdmin.ToString())
         };
 
         var token = new JwtSecurityToken(
