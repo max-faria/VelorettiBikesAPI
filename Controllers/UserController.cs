@@ -69,6 +69,7 @@ public class UserController : ControllerBase
         await _userService.CreateUser(user);
         return CreatedAtAction(nameof(GetUserById), new { id = user.UserId }, user);
     }
+    [EnableCors("MyAllowSpecificOrigins")]
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
     {

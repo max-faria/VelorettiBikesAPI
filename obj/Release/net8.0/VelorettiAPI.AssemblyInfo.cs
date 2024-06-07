@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VelorettiAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff248004b9196e170888c0491eb1391c86a191fe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e05463a7122dad5025ab3da3496fb0fb131d621")]
 [assembly: System.Reflection.AssemblyProductAttribute("VelorettiAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VelorettiAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

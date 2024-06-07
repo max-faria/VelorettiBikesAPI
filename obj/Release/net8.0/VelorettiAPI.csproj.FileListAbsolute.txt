@@ -133,3 +133,8 @@
 /Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Release/net8.0/publish/publish/publish/appsettings.Development.json
 /Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Release/net8.0/publish/publish/publish/appsettings.json
 /Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Release/net8.0/publish/publish/publish/VelorettiAPI.deps.json
+/Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Release/net8.0/publish/publish/publish/publish/web.config
+/Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Release/net8.0/publish/publish/publish/publish/appsettings.Development.json
+/Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Release/net8.0/publish/publish/publish/publish/appsettings.json
+/Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Release/net8.0/publish/publish/publish/publish/VelorettiAPI.deps.json
+/Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Release/net8.0/publish/publish/publish/publish/VelorettiAPI.runtimeconfig.json
