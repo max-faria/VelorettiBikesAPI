@@ -17,12 +17,19 @@ if (string.IsNullOrEmpty(jwtKey))
 {
     throw new InvalidOperationException("JWT_KEY environment variable is missing.");
 }
-
+//LOAD VARIABLES FROM THE DATABASE
 var host = GetEnvironmentVariable("DB_HOST");
 var port = GetEnvironmentVariable("DB_PORT");
 var dbName = GetEnvironmentVariable("DB_NAME");
 var user = GetEnvironmentVariable("DB_USER");
 var password = GetEnvironmentVariable("DB_PASSWORD");
+
+// Load Email configuration
+var fromEmail = GetEnvironmentVariable("EMAIL_FROM");
+var smtpServer = GetEnvironmentVariable("EMAIL_SMTP");
+var emailPort = GetEnvironmentVariable("EMAIL_PORT");
+var emailUsername = GetEnvironmentVariable("EMAIL_USERNAME");
+var emailPassword = GetEnvironmentVariable("EMAIL_PASSWORD");
 
 // Add services to the container.
 builder.Services.AddCors(options =>
@@ -88,6 +95,13 @@ var connectionString = defaultConnectionString.
 builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseNpgsql(connectionString))
 ;
+
+// Add Email settings to configuration
+builder.Configuration["EmailSettings:FromEmail"] = fromEmail;
+builder.Configuration["EmailSettings:Server"] = smtpServer;
+builder.Configuration["EmailSettings:Port"] = emailPort;
+builder.Configuration["EmailSettings:Username"] = emailUsername;
+builder.Configuration["EmailSettings:Password"] = emailPassword;
 
 // Add authorization services
 builder.Services.AddAuthorization();

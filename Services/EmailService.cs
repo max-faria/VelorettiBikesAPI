@@ -10,6 +10,11 @@ public class EmailService
     public EmailService(IConfiguration configuration)
     {
         _configuration = configuration;
+
+        Console.WriteLine($"FromEmail: {_configuration["EmailSettings:FromEmail"]}");
+        Console.WriteLine($"Server: {_configuration["EmailSettings:Server"]}");
+        Console.WriteLine($"Port: {_configuration["EmailSettings:Port"]}");
+        Console.WriteLine($"Username: {_configuration["EmailSettings:Username"]}");
     }
 
     public async Task SendEmailAsync(string toEmail, string subject, string message)
@@ -28,7 +33,7 @@ public class EmailService
                 throw new ArgumentNullException("EmailSettings:Port", "The Port cannot be null");
             }
             
-            await client.ConnectAsync(_configuration["EmailSettings:SmtpServer"], int.Parse(emailPort), true);
+            await client.ConnectAsync(_configuration["EmailSettings:Server"], int.Parse(emailPort), true);
             await client.AuthenticateAsync(_configuration["EmailSettings:Username"], _configuration["EmailSettings:Password"]);
             await client.SendAsync(emailMessage);
             await client.DisconnectAsync(true);

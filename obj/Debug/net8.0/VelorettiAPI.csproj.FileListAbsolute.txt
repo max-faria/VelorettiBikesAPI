@@ -143,3 +143,4 @@
 /Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Debug/net8.0/publish/publish/publish/publish/publish/appsettings.json
 /Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Debug/net8.0/publish/publish/publish/publish/publish/VelorettiAPI.deps.json
 /Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Debug/net8.0/publish/publish/publish/publish/publish/VelorettiAPI.runtimeconfig.json
+/Users/maxfaria/Documents/Projects/VelorettiAPI/VelorettiAPI/bin/Debug/net8.0/web.config
