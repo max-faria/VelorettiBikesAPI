@@ -55,6 +55,7 @@ public class UserController : ControllerBase
         }
         return Ok(user);
     }
+    [EnableCors("MyAllowSpecificOrigins")]
     [HttpPost("signup")]
     public async Task<IActionResult> CreateUser(User user)
     {
