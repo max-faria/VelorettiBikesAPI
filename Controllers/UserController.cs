@@ -54,7 +54,6 @@ public class UserController : ControllerBase
         }
         return Ok(user);
     }
-    [EnableCors("MyAllowSpecificOrigins")]
     [HttpPost("signup")]
     public async Task<IActionResult> CreateUser(User user)
     {
@@ -77,7 +76,6 @@ public class UserController : ControllerBase
         }
 
     }
-    [EnableCors("MyAllowSpecificOrigins")]
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
     {
