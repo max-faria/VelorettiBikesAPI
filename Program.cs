@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using VelorettiAPI.Services;
 
-
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 // Load environment variables and replace placeholders
@@ -34,7 +34,7 @@ var emailPassword = GetEnvironmentVariable("EMAIL_PASSWORD");
 // Add services to the container.
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("MyAllowSpecificOrigins",
+    options.AddPolicy(MyAllowSpecificOrigins,
         policy =>
         {
             policy.WithOrigins("http://localhost:5173")
@@ -117,7 +117,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("MyAllowSpecificOrigins");
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthentication();
 app.UseAuthorization();
