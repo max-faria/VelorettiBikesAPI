@@ -64,11 +64,19 @@ public class UserController : ControllerBase
             return BadRequest();
         }
 
-        var subject = "Welcome!";
-        var message = $"Hello {user.Name},\n\nWelcome to our service. We're glad to have you with us!";
-        await _emailService.SendEmailAsync(user.Email, subject, message);
-        await _userService.CreateUser(user);
-        return CreatedAtAction(nameof(GetUserById), new { id = user.UserId }, user);
+        try
+        {
+            await _userService.CreateUser(user);
+            var subject = "Welcome!";
+            var message = $"Hello {user.Name},\n\nWelcome to our service. We're glad to have you with us!";
+            await _emailService.SendEmailAsync(user.Email, subject, message);
+            return CreatedAtAction(nameof(GetUserById), new { id = user.UserId }, user);
+        } catch (InvalidOperationException ex) {
+            return BadRequest(new {message = ex.Message});
+        } catch (Exception ex) {
+            return StatusCode(500, new {message = ex.Message});
+        }
+
     }
     [EnableCors("MyAllowSpecificOrigins")]
     [HttpPost("login")]
