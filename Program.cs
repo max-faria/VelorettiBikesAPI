@@ -99,7 +99,7 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 // Add Email settings to configuration
 builder.Configuration["EmailSettings:FromEmail"] = fromEmail;
 builder.Configuration["EmailSettings:Server"] = smtpServer;
-builder.Configuration["EmailSettings:Port"] = "465";
+// builder.Configuration["EmailSettings:Port"] = "465";
 builder.Configuration["EmailSettings:Username"] = emailUsername;
 builder.Configuration["EmailSettings:Password"] = emailPassword;
 

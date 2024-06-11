@@ -28,12 +28,15 @@ public class EmailService
         using (var client = new SmtpClient())
         {
             var emailPort = _configuration["EmailSettings:Port"];
-            if(string.IsNullOrEmpty(emailPort))
+            if (string.IsNullOrEmpty(emailPort))
             {
                 throw new ArgumentNullException("EmailSettings:Port", "The Port cannot be null");
             }
-            
-            await client.ConnectAsync(_configuration["EmailSettings:Server"], int.Parse(emailPort), true);
+
+            // string emailServer = _configuration["EmailSettings:Server"];
+            // int emailPort = int.Parse(_configuration["EmailSettings:Port"]);
+            await client.ConnectAsync(_configuration["EmailSettings:Server"], 465, true);
+            // await client.ConnectAsync(_configuration["EmailSettings:Server"], int.Parse(emailPort), true);
             await client.AuthenticateAsync(_configuration["EmailSettings:Username"], _configuration["EmailSettings:Password"]);
             await client.SendAsync(emailMessage);
             await client.DisconnectAsync(true);
