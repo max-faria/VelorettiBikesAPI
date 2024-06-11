@@ -65,9 +65,9 @@ public class UserController : ControllerBase
         try
         {
             await _userService.CreateUser(user);
-            var subject = "Welcome!";
-            var message = $"Hello {user.Name},\n\nWelcome to our service. We're glad to have you with us!";
-            await _emailService.SendEmailAsync(user.Email, subject, message);
+            // var subject = "Welcome!";
+            // var message = $"Hello {user.Name},\n\nWelcome to our service. We're glad to have you with us!";
+            // await _emailService.SendEmailAsync(user.Email, subject, message);
             // return CreatedAtAction(nameof(GetUserById), new { id = user.UserId }, user);
             return Ok();
         } catch (InvalidOperationException ex) {
