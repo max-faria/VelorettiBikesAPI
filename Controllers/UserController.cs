@@ -68,7 +68,8 @@ public class UserController : ControllerBase
             var subject = "Welcome!";
             var message = $"Hello {user.Name},\n\nWelcome to our service. We're glad to have you with us!";
             await _emailService.SendEmailAsync(user.Email, subject, message);
-            return CreatedAtAction(nameof(GetUserById), new { id = user.UserId }, user);
+            // return CreatedAtAction(nameof(GetUserById), new { id = user.UserId }, user);
+            return Ok();
         } catch (InvalidOperationException ex) {
             return BadRequest(new {message = ex.Message});
         } catch (Exception ex) {
