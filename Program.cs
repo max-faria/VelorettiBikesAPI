@@ -27,7 +27,7 @@ var password = GetEnvironmentVariable("DB_PASSWORD");
 // Load Email configuration
 var fromEmail = GetEnvironmentVariable("EMAIL_FROM");
 var smtpServer = GetEnvironmentVariable("EMAIL_SMTP");
-var emailPort = GetEnvironmentVariable("EMAIL_PORT");
+// var emailPort = GetEnvironmentVariable("EMAIL_PORT");
 var emailUsername = GetEnvironmentVariable("EMAIL_USERNAME");
 var emailPassword = GetEnvironmentVariable("EMAIL_PASSWORD");
 
@@ -99,7 +99,7 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 // Add Email settings to configuration
 builder.Configuration["EmailSettings:FromEmail"] = fromEmail;
 builder.Configuration["EmailSettings:Server"] = smtpServer;
-builder.Configuration["EmailSettings:Port"] = emailPort;
+// builder.Configuration["EmailSettings:Port"] = emailPort;
 builder.Configuration["EmailSettings:Username"] = emailUsername;
 builder.Configuration["EmailSettings:Password"] = emailPassword;
 
