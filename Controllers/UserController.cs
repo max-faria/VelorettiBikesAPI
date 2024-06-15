@@ -55,6 +55,7 @@ public class UserController : ControllerBase
         return Ok(user);
     }
     [HttpPost("signup")]
+    [EnableCors("MyAllowSpecificOrigins")]
     public async Task<IActionResult> CreateUser(User user)
     {
         if (!ModelState.IsValid)

@@ -8,7 +8,7 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 // Load environment variables and replace placeholders
-string GetEnvironmentVariable(string key, string defaultValue = "") =>
+string GetEnvironmentVariable(string key, string defaultValue = "") => 
     Environment.GetEnvironmentVariable(key) ?? defaultValue
 ;
 
@@ -40,9 +40,7 @@ builder.Services.AddCors(options =>
             policy.WithOrigins("http://localhost:5173")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
-                .AllowCredentials().SetIsOriginAllowedToAllowWildcardSubdomains()
-               .WithExposedHeaders("Access-Control-Allow-Origin");
-            Console.WriteLine("CORS policy applied");
+                .AllowCredentials();
         });
 });
 
@@ -60,7 +58,7 @@ if (key.Length < 32)
 }
 builder.Configuration["Jwt:key"] = jwtKey; // Add the JWT key to the configuration
 
-builder.Services.AddAuthentication(x =>
+builder.Services.AddAuthentication(x => 
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -77,14 +75,14 @@ builder.Services.AddAuthentication(x =>
     };
 
 });
-builder.Services.AddAuthorization(options =>
+builder.Services.AddAuthorization(options => 
 {
     options.AddPolicy("Admin", policy => policy.RequireClaim("IsAdmin", "True"));
     options.AddPolicy("AuthenticatedUser", policy => policy.RequireAuthenticatedUser());
 });
 
 // Add DbContext with PostgreSQL configuration
-var defaultConnectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+var defaultConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found")
 ;
 var connectionString = defaultConnectionString.
@@ -118,13 +116,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.Use(async (context, next) =>
-{
-    Console.WriteLine($"Request: {context.Request.Method} {context.Request.Path}");
-    await next.Invoke();
-    Console.WriteLine($"Response: {context.Response.StatusCode}");
-});
 
 app.UseCors(MyAllowSpecificOrigins);
 
