@@ -1,7 +1,11 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using VelorettiAPI.Attributes;
 using VelorettiAPI.Models;
 using VelorettiAPI.Services;
@@ -55,7 +59,6 @@ public class UserController : ControllerBase
         return Ok(user);
     }
     [HttpPost("signup")]
-    [EnableCors("MyAllowSpecificOrigins")]
     public async Task<IActionResult> CreateUser([FromBody] User user)
     {
         if (!ModelState.IsValid)
@@ -99,5 +102,47 @@ public class UserController : ControllerBase
         var token = _userService.GenerateJWT(user);
 
         return Ok(new { token });
+    }
+    [HttpPost("recover-password")]
+    public async Task<IActionResult> RecoverPassword([FromBody] RecoverPasswordRequest request)
+    {
+        var user = await _userService.GetUserByEmail(request.Email);
+        if(user == null) 
+        {
+            return BadRequest("Invalid email address");
+        }
+
+        var token = _userService.GeneratePasswordResetToken(user);
+        var resetLink = Url.Action("ResetPassword", "User", new { token }, Request.Scheme);
+
+        var subject = "Password reset";
+        var message = $"Hello {user.Name},\n\nYou requested a password reset. Click the link below to reset your password:\n\n{resetLink}";
+        await _emailService.SendEmailAsync(user.Email, subject, message);
+
+        return Ok("Password reset link sent to your email address.");
+    }
+    [HttpPost("reset-password")]
+    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+    {
+        var principal = _userService.ValidatePasswordResetToken(request.Token);
+        if (principal == null)
+        {
+            return BadRequest("Invalid or expired token");
+        }
+
+        var userIdClaim = principal.FindFirst("UserId");
+        if (userIdClaim == null)
+        {
+            return BadRequest("Invalid User");
+        }
+
+        var userId = userIdClaim.Value;
+        var user = await _userService.GetById(int.Parse(userId));
+        if (user == null)
+        {
+            return BadRequest("Invalid User");
+        }
+        await _userService.ResetPassword(user, request.Password);
+        return Ok("Password has been reset successfully");
     }
 }

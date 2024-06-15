@@ -90,4 +90,49 @@ public class UserService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+    public string GeneratePasswordResetToken(User user)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:key"] ?? string.Empty);
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(new Claim[]
+            {
+                new Claim("UserId", user.UserId.ToString())
+            }),
+            Expires = DateTime.UtcNow.AddHours(1),
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        };
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+        return tokenHandler.WriteToken(token);  
+    }
+
+    public ClaimsPrincipal ValidatePasswordResetToken(string token)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:key"] ?? string.Empty);
+        try
+        {
+            var principal = tokenHandler.ValidateToken(token, new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ClockSkew = TimeSpan.Zero
+            }, out SecurityToken validatedToken);
+            return principal;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+    public async Task ResetPassword(User user, string password)
+    {
+        user.Password = BCrypt.Net.BCrypt.HashPassword(password);
+        _context.Users.Update(user);
+        await _context.SaveChangesAsync();
+    }
+
 }
