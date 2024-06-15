@@ -91,6 +91,10 @@ public class UserController : ControllerBase
         }
 
         var user = await _userService.GetUserByEmail(loginModel.Email);
+
+        var subject = "Log In";
+        var message = $"One login was realized in {DateTime.Now}";
+        await _emailService.SendEmailAsync(user.Email, subject, message);
         var token = _userService.GenerateJWT(user);
 
         return Ok(new { token });
