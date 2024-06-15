@@ -14,6 +14,7 @@ namespace VelorettiAPI.Controllers;
 
 [Microsoft.AspNetCore.Mvc.Route("/[controller]")]
 [ApiController]
+[EnableCors("_myAllowSpecificOrigins")]
 public class UserController : ControllerBase
 {
     private readonly UserService _userService;
