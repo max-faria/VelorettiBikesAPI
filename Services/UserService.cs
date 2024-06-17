@@ -106,6 +106,10 @@ public class UserService
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);  
     }
+    public string GenerateResetLink(string token)
+    {
+        return $"{_configuration["FrontendUrl"]}/reset-password?token={token}";
+    }
 
     public ClaimsPrincipal ValidatePasswordResetToken(string token)
     {

@@ -114,7 +114,8 @@ public class UserController : ControllerBase
         }
 
         var token = _userService.GeneratePasswordResetToken(user);
-        var resetLink = Url.Action("ResetPassword", "User", new { token }, Request.Scheme);
+        // var resetLink = Url.Action("ResetPassword", "User", new { token }, Request.Scheme);
+        var resetLink = _userService.GenerateResetLink(token);
 
         var subject = "Password reset";
         var message = $"Hello {user.Name},\n\nYou requested a password reset. Click the link below to reset your password:\n\n{resetLink}";
