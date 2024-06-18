@@ -14,7 +14,6 @@ namespace VelorettiAPI.Controllers;
 
 [Microsoft.AspNetCore.Mvc.Route("/[controller]")]
 [ApiController]
-[EnableCors("_myAllowSpecificOrigins")]
 public class UserController : ControllerBase
 {
     private readonly UserService _userService;
@@ -107,6 +106,8 @@ public class UserController : ControllerBase
     [HttpPost("recover-password")]
     public async Task<IActionResult> RecoverPassword([FromBody] RecoverPasswordRequest request)
     {
+        Response.Headers.Append("Access-Control-Allow-Origin", "*"); // ou "*"
+
         var user = await _userService.GetUserByEmail(request.Email);
         if(user == null) 
         {
@@ -146,5 +147,13 @@ public class UserController : ControllerBase
         }
         await _userService.ResetPassword(user, request.Password);
         return Ok("Password has been reset successfully");
+    }
+    [HttpOptions]
+    public IActionResult Options()
+    {
+        Response.Headers.Append("Access-Control-Allow-Headers", "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token");
+        Response.Headers.Append("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+        Response.Headers.Append("Access-Control-Allow-Origin", "*"); // ou "*"
+        return Ok();
     }
 }
